@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  afus:
+    container_name: afus
+    image: enquestor/afus
+    ports:
+      - 3000:3000
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: afus
+      POSTGRES_USER: afus
+      POSTGRES_PASSWORD: afus
+    restart: always
