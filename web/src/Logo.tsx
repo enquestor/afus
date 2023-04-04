@@ -1,6 +1,9 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 
 function Logo() {
+  const title = import.meta.env.VITE_TITLE || "Afus";
+  const subtitle = import.meta.env.VITE_SUBTITLE || "A fucking URL shortener.";
+
   return (
     <Flex direction="column" alignItems="center">
       <Heading
@@ -10,16 +13,16 @@ function Logo() {
         userSelect="none"
         _hover={{ cursor: "default" }}
       >
-        Afus
+        {title}
       </Heading>
       <Text
         fontSize="2xl"
-        color="gray.600"
+        color="gray.500"
         pb={10}
         userSelect="none"
         _hover={{ cursor: "default" }}
       >
-        A fucking URL shortener.
+        {subtitle}
       </Text>
     </Flex>
   );

@@ -2,6 +2,7 @@ import { Button, Flex, useColorMode } from "@chakra-ui/react";
 
 function Footer() {
   const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Flex
       position="absolute"
