@@ -1,40 +1,27 @@
 import { useState } from "react";
 import {
   Box,
-  Button,
   Center,
-  Container,
   Flex,
-  Heading,
   Input,
   InputGroup,
   InputRightElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
+  Kbd,
 } from "@chakra-ui/react";
-import { LinkIcon } from "@chakra-ui/icons";
 import Footer from "./Footer";
 import Logo from "./Logo";
+import Result from "./Result";
 
 function App() {
   const [url, setUrl] = useState("");
-  const [isGeneratingUrl, setIsGeneratingUrl] = useState(false);
   const [code, setCode] = useState("");
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUrl(e.target.value);
 
   const handleUrlGeneration = async () => {
-    setIsGeneratingUrl(true);
-
     try {
-      const result = await fetch("http://localhost:3000/", {
+      const result = await fetch(window.location.origin, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,58 +34,41 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-
-    setIsGeneratingUrl(false);
-  };
-
-  const handleModalClose = () => {
-    setCode("");
   };
 
   return (
-    <>
-      <Center h="100vh" w="100vw">
-        <Flex direction="column" alignItems="center">
+    <Box h="100vh" w="100vw">
+      <Center h="100%" w="100%">
+        <Flex
+          direction="column"
+          alignItems="center"
+          h="90%"
+          w="90%"
+          maxW="500px"
+        >
+          <Box h="20%" />
           <Logo />
-          <InputGroup alignItems="center">
+          <InputGroup alignItems="center" pb="32px">
             <Input
+              autoFocus
               value={url}
               onChange={handleUrlChange}
               size="lg"
-              w="500px"
               placeholder="Link"
-              focusBorderColor="black"
+              focusBorderColor="gray.500"
+              onKeyDown={(e) => e.key === "Enter" && handleUrlGeneration()}
             />
-            <InputRightElement top="-moz-initial" pr="2">
-              <Button
-                isLoading={isGeneratingUrl}
-                onClick={handleUrlGeneration}
-                variant="ghost"
-              >
-                <LinkIcon color="gray.400" />
-              </Button>
+            <InputRightElement top="-moz-initial" pr="9">
+              <Kbd userSelect="none" _hover={{ cursor: "default" }}>
+                enter
+              </Kbd>
             </InputRightElement>
           </InputGroup>
+          <Result code={code} />
         </Flex>
       </Center>
       <Footer />
-      <Modal isCentered isOpen={code != ""} onClose={handleModalClose}>
-        <ModalOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(10px) hue-rotate(90deg)"
-        />
-        <ModalContent>
-          <ModalBody>
-            <Text>
-              {window.location.origin}/{code}
-            </Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={handleModalClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+    </Box>
   );
 }
 

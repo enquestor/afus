@@ -1,26 +1,12 @@
-import { useState } from "react";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-} from "@chakra-ui/react";
-import { LinkIcon } from "@chakra-ui/icons";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 
 function Logo() {
-  const [count, setCount] = useState(0);
-
   return (
     <Flex direction="column" alignItems="center">
       <Heading
         as="h1"
-        fontSize={100}
-        mb={2}
+        fontSize={90}
+        mb={1}
         userSelect="none"
         _hover={{ cursor: "default" }}
       >
@@ -29,7 +15,7 @@ function Logo() {
       <Text
         fontSize="2xl"
         color="gray.600"
-        pb={12}
+        pb={10}
         userSelect="none"
         _hover={{ cursor: "default" }}
       >

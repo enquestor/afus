@@ -1,29 +1,21 @@
-import { useState } from "react";
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-} from "@chakra-ui/react";
-import { LinkIcon } from "@chakra-ui/icons";
+import { Button, Flex, useColorMode } from "@chakra-ui/react";
 
 function Footer() {
-  const [count, setCount] = useState(0);
-
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Flex
       position="absolute"
       bottom="0"
       w="100vw"
       p="4"
-      justifyContent="center"
+      justifyContent="space-between"
     >
-      <Button variant="link">GitHub</Button>
+      <Button onClick={toggleColorMode}>
+        {colorMode === "light" ? "Dark" : "Light"} Mode
+      </Button>
+      <Button variant="link" pr="8px">
+        GitHub
+      </Button>
     </Flex>
   );
 }
