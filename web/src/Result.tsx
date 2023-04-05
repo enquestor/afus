@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
+import config from "./config";
 
 function Character({ char }: { char: string }) {
   const isNumber = !isNaN(Number(char));
@@ -37,7 +38,7 @@ function Result({ code }: { code: string }) {
   const toast = useToast();
 
   function copyShortUrl() {
-    navigator.clipboard.writeText(`${window.location.origin}/${code}`);
+    navigator.clipboard.writeText(`${config.AFUS_URL}/${code}`);
     toast({
       title: "Copied!",
     });
@@ -65,10 +66,10 @@ function Result({ code }: { code: string }) {
       <Card w="100%" opacity={code === "" ? 0 : 1}>
         <CardBody display="flex" flexDirection="row">
           <Text fontSize="2xl" userSelect="none" _hover={{ cursor: "default" }}>
-            {window.location.origin}/
+            {config.AFUS_URL}/
           </Text>
-          {code.split("").map((char) => (
-            <Character char={char} />
+          {code.split("").map((char, index) => (
+            <Character key={index} char={char} />
           ))}
         </CardBody>
         <CardFooter>
@@ -101,7 +102,7 @@ function Result({ code }: { code: string }) {
             <QRCodeSVG
               height="75%"
               width="75%"
-              value={`${window.location.origin}/${code}`}
+              value={`${config.AFUS_URL}/${code}`}
             />
           </Center>
         </ModalContent>

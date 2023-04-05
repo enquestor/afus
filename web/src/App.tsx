@@ -11,6 +11,7 @@ import {
 import Footer from "./Footer";
 import Logo from "./Logo";
 import Result from "./Result";
+import config from "./config";
 
 function App() {
   const [url, setUrl] = useState("");
@@ -21,7 +22,7 @@ function App() {
 
   const handleUrlGeneration = async () => {
     try {
-      const result = await fetch(window.location.origin, {
+      const result = await fetch(config.AFUS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
