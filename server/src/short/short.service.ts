@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Short } from './short.entity';
 import { customAlphabet } from 'nanoid';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class ShortService {
@@ -37,7 +38,13 @@ export class ShortService {
       code,
       url,
     });
-    await this.shortRepository.save(short).catch((_) => {
+    await validate(short).then((errors) => {
+      if (errors.length > 0) {
+        throw new HttpException('Invalid URL', HttpStatus.BAD_REQUEST);
+      }
+    });
+
+    await this.shortRepository.save(short).catch(() => {
       throw new HttpException(
         'Error insterting to database',
         HttpStatus.INTERNAL_SERVER_ERROR,

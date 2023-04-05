@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputRightElement,
   Kbd,
+  useToast,
 } from "@chakra-ui/react";
 import Footer from "./Footer";
 import Logo from "./Logo";
@@ -16,6 +17,7 @@ import config from "./config";
 function App() {
   const [url, setUrl] = useState("");
   const [code, setCode] = useState("");
+  const toast = useToast();
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUrl(e.target.value);
@@ -31,9 +33,22 @@ function App() {
       });
 
       const parsed = await result.json();
-      setCode(parsed.code);
+      if (result.ok) {
+        setCode(parsed.code);
+      } else {
+        toast({
+          title: "Error",
+          description: parsed.message,
+          status: "error",
+        });
+      }
+      return;
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Error",
+        description: "Request failed",
+        status: "error",
+      });
     }
   };
 

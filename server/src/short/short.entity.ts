@@ -4,6 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { IsUrl } from 'class-validator';
 
 @Entity()
 export class Short {
@@ -14,6 +15,7 @@ export class Short {
   code: string;
 
   @Column()
+  @IsUrl()
   url: string;
 
   @CreateDateColumn()

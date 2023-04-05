@@ -41,6 +41,7 @@ function Result({ code }: { code: string }) {
     navigator.clipboard.writeText(`${config.AFUS_URL}/${code}`);
     toast({
       title: "Copied!",
+      status: "success",
     });
   }
 
