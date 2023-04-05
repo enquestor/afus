@@ -4,12 +4,23 @@ services:
   afus:
     container_name: afus
     image: enquestor/afus
+    depends_on:
+      - postgres
     ports:
       - 3000:3000
+    environment:
+      - AFUS_TITLE=nqstr
+      - AFUS_SUBTITLE=Enquestor's URL shortener
+
   postgres:
     image: postgres
     environment:
       POSTGRES_DB: afus
       POSTGRES_USER: afus
       POSTGRES_PASSWORD: afus
+    volumes:
+      - postgres:/var/lib/postgresql/data
     restart: always
+
+volumes:
+  postgres:

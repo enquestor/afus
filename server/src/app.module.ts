@@ -11,7 +11,7 @@ import { join } from 'path';
   imports: [
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', 'web'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

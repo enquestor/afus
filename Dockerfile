@@ -26,12 +26,16 @@ WORKDIR /app
 COPY ./server/package*.json ./
 RUN npm ci --omit=dev
 
-# Copy production build
-COPY --from=build-server /app/dist/ ./dist/
-COPY --from=build-web /app/dist/ ./public/
+# copy production build
+COPY --from=build-server /app/dist/ ./server/
+COPY --from=build-web /app/dist/ ./web/
 
-# Expose application port
+# copy webenv_setup script
+COPY ./server/webenv_setup.sh ./webenv_setup.sh
+
+# give permission
+RUN chmod a+x ./webenv_setup.sh
+
 EXPOSE 3000
 
-# Start application
-CMD [ "node", "dist/main.js" ]
+CMD ./webenv_setup.sh && node server/main.js
