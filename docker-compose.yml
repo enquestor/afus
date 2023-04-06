@@ -9,8 +9,10 @@ services:
     ports:
       - 3000:3000
     environment:
+      - AFUS_URL=https://nqstr.cc
       - AFUS_TITLE=nqstr
       - AFUS_SUBTITLE=Enquestor's URL shortener
+    restart: always
 
   postgres:
     image: postgres
