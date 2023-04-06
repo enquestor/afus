@@ -11,14 +11,14 @@ replace() {
 
 if [ -n "$AFUS_TITLE" ]; then
   echo Set title to $AFUS_TITLE
-  replace '_AFUS_TITLE_' "$AFUS_TITLE"
+  replace _AFUS_TITLE_ "$AFUS_TITLE"
 else
-  replace '_AFUS_TITLE_' "$DEFAULT_AFUS_TITLE"
+  replace _AFUS_TITLE_ "$DEFAULT_AFUS_TITLE"
 fi
 
 if [ -n "$AFUS_SUBTITLE" ]; then
   echo Set subtitle to $AFUS_SUBTITLE
-  replace '_AFUS_SUBTITLE_' "$AFUS_SUBTITLE"
+  replace _AFUS_SUBTITLE_ "$AFUS_SUBTITLE"
 else
-  replace '_AFUS_SUBTITLE_' "$DEFAULT_AFUS_SUBTITLE"
+  replace _AFUS_SUBTITLE_ "$DEFAULT_AFUS_SUBTITLE"
 fi

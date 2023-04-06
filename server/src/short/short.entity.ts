@@ -4,7 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsUrl } from 'class-validator';
+import { IsUrl, NotContains } from 'class-validator';
 
 @Entity()
 export class Short {
@@ -14,8 +14,9 @@ export class Short {
   @Column()
   code: string;
 
-  @Column()
   @IsUrl()
+  @NotContains(process.env.AFUS_URL || ' ')
+  @Column()
   url: string;
 
   @CreateDateColumn()
