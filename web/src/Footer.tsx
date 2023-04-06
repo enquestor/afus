@@ -16,7 +16,7 @@ function Footer() {
       </Button>
       <Button
         as={Link}
-        href="https://github.com/Enquestor/Afus"
+        href="https://github.com/Enquestor/afus"
         isExternal
         variant="link"
         pr="8px"
