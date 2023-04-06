@@ -1,4 +1,4 @@
-import { Button, Flex, useColorMode } from "@chakra-ui/react";
+import { Button, Flex, Link, useColorMode } from "@chakra-ui/react";
 
 function Footer() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -14,7 +14,13 @@ function Footer() {
       <Button onClick={toggleColorMode}>
         {colorMode === "light" ? "Dark" : "Light"} Mode
       </Button>
-      <Button variant="link" pr="8px">
+      <Button
+        as={Link}
+        href="https://github.com/Enquestor/Afus"
+        isExternal
+        variant="link"
+        pr="8px"
+      >
         GitHub
       </Button>
     </Flex>
