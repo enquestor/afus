@@ -64,7 +64,7 @@ function Result({ code }: { code: string }) {
 
   return (
     <>
-      <Card w="100%" opacity={code === "" ? 0 : 1}>
+      <Card w="100%" display={code === "" ? "none" : undefined}>
         <CardBody display="flex" flexDirection="row">
           <Text fontSize="2xl" userSelect="none" _hover={{ cursor: "default" }}>
             {config.AFUS_URL}/

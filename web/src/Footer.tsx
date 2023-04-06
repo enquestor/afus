@@ -19,7 +19,7 @@ function Footer() {
         href="https://github.com/Enquestor/afus"
         isExternal
         variant="link"
-        pr="8px"
+        pr="16px"
       >
         GitHub
       </Button>

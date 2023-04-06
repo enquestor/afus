@@ -17,12 +17,16 @@ import config from "./config";
 function App() {
   const [url, setUrl] = useState("");
   const [code, setCode] = useState("");
+  const [isGeneratingUrl, setIsGeneratingUrl] = useState(false);
   const toast = useToast();
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUrl(e.target.value);
 
   const handleUrlGeneration = async () => {
+    if (isGeneratingUrl) return;
+    setIsGeneratingUrl(true);
+
     try {
       const result = await fetch(config.AFUS_URL, {
         method: "POST",
@@ -42,7 +46,6 @@ function App() {
           status: "error",
         });
       }
-      return;
     } catch (error) {
       toast({
         title: "Error",
@@ -50,10 +53,12 @@ function App() {
         status: "error",
       });
     }
+
+    setIsGeneratingUrl(false);
   };
 
   return (
-    <Box h="100vh" w="100vw">
+    <Box h="100dvh" w="100vw">
       <Center h="100%" w="100%">
         <Flex
           direction="column"
@@ -69,6 +74,7 @@ function App() {
               autoFocus
               value={url}
               onChange={handleUrlChange}
+              isDisabled={isGeneratingUrl}
               size="lg"
               placeholder="Link"
               focusBorderColor="gray.500"
