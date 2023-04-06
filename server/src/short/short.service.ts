@@ -13,7 +13,7 @@ export class ShortService {
   ) {}
 
   async getUrl(code: string): Promise<string> {
-    const short = await this.shortRepository.findOneBy({ code }).catch((_) => {
+    const short = await this.shortRepository.findOneBy({ code }).catch(() => {
       throw new HttpException(
         'Error getting from database',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -46,7 +46,7 @@ export class ShortService {
 
     await this.shortRepository.save(short).catch(() => {
       throw new HttpException(
-        'Error insterting to database',
+        'Error inserting to database',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     });
