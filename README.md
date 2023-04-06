@@ -1,24 +1,21 @@
 # Afus
+A fucking url shortener.
 
 ## Development
 ```
 # clone the repo
-git clone
+git clone git@github.com:Enquestor/Afus.git
 cd afus
 
 # start postgres
 docker compose up -f docker-compose.dev.yml -d
 
-# start web watch
+# start web dev server
 cd web
 npm install
-npm run watch
+npm run dev
 
-# on second terminal
-# symlink web dist to server folder
-ln -s ./web/dist ./server/public
-
-# start dev server
+# start nestjs dev server
 cd server
 npm install
 npm run start:dev
@@ -26,7 +23,7 @@ npm run start:dev
 
 ## Build
 ```
-git clone
+git clone git@github.com:Enquestor/Afus.git
 cd afus
 docker build .
 ```
