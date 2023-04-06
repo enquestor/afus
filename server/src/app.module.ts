@@ -1,33 +1,43 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Short, ShortModule } from './short';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import config from './config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'web'),
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.PG_HOST || 'postgres',
-      port: parseInt(process.env.PG_PORT || '5432'),
-      username: process.env.POSTGRES_USER || 'afus',
-      password: process.env.POSTGRES_PASSWORD || 'afus',
-      database: process.env.POSTGRES_DB || 'afus',
-      entities: [Short],
-      synchronize: process.env.NODE_ENV !== 'production',
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('POSTGRES_HOST'),
+        port: configService.get('POSTGRES_PORT'),
+        username: configService.get('POSTGRES_USER'),
+        password: configService.get('POSTGRES_PASSWORD'),
+        database: configService.get('POSTGRES_DB'),
+        entities: [Short],
+        synchronize: configService.get('DEV'),
+      }),
     }),
-    ThrottlerModule.forRoot({
-      ttl: parseInt(process.env.TTL || '60'),
-      limit: parseInt(process.env.LIMIT || '6'),
+    ThrottlerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ttl: configService.get('TTL'),
+        limit: configService.get('LIMIT'),
+      }),
     }),
     ShortModule,
   ],
