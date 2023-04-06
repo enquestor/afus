@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { ShortService } from './short/short.service';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller()
 export class AppController {
@@ -16,6 +25,7 @@ export class AppController {
   }
 
   @Post()
+  @UseGuards(ThrottlerGuard)
   async createUrl(@Body('url') url: string, @Res() res: Response) {
     const code = await this.shortService.createUrl(url);
     return res.status(201).json({ code });
