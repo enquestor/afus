@@ -14,7 +14,7 @@ export class Short {
   @Column()
   code: string;
 
-  @IsUrl()
+  @IsUrl({ require_protocol: true })
   @NotContains(process.env.AFUS_URL || ' ')
   @Column()
   url: string;
