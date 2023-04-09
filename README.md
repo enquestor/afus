@@ -1,7 +1,15 @@
 # Afus
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/enquestor/afus)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/enquestor/afus/build.yml)
+
 A fucking url shortener.
+
+## Features
+- Simple url shortening.
+- Keyboard shortcuts for ease of use.
+- QR code svg generation.
+- Simple rate limiting.
+- Easy docker deployment.
 
 ## Quick Start
 ### 1. Get the example docker-compose.yml
