@@ -13,7 +13,7 @@ A fucking url shortener.
 
 ## Quick Start
 ### 1. Get the example docker-compose.yml
-You can copy it directly or use shell:
+You can copy it directly from [here](https://raw.githubusercontent.com/enquestor/afus/master/docker-compose.yml) or use `curl`:
 ```
 curl https://raw.githubusercontent.com/enquestor/afus/master/docker-compose.yml >> docker-compose.yml
 ```
