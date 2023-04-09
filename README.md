@@ -33,7 +33,11 @@ These options can be configured by setting environment variables.
 | `AFUS_TITLE` | `Afus` | `nqstr` | The title of your site. |
 | `AFUS_SUBTITLE` | `A fucking URL shortener.` | `Enquestor's URL shortener.` | The subtitle of your site. |
 | `TTL` | `60` | - | Setting `TTL` to `60` and `LIMIT` to `6` rate limits a single user to 6 urls in a minute. |
-| `LIMIT` | `6` | - | Same as above |
+| `LIMIT` | `6` | - | Same as above. |
+
+You can also customize postgres credentials, specifically `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`.
+
+For descriptions of each parameter, see [here](https://hub.docker.com/_/postgres).
 
 ## Build Locally
 ```
