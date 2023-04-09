@@ -10,6 +10,7 @@ import {
 import { Response } from 'express';
 import { ShortService } from './short/short.service';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { CreateShortDto } from './dto';
 
 @Controller()
 export class AppController {
@@ -26,8 +27,11 @@ export class AppController {
 
   @Post()
   @UseGuards(ThrottlerGuard)
-  async createUrl(@Body('url') url: string, @Res() res: Response) {
-    const code = await this.shortService.createUrl(url);
+  async createShort(
+    @Body() createShortDto: CreateShortDto,
+    @Res() res: Response,
+  ) {
+    const code = await this.shortService.createShort(createShortDto.url);
     return res.status(201).json({ code });
   }
 }
