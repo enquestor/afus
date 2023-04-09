@@ -4,6 +4,8 @@
 
 A fucking url shortener.
 
+![Screenshot](https://github.com/enquestor/afus/blob/master/assets/screenshot.png?raw=true)
+
 ## Features
 - Simple url shortening.
 - Keyboard shortcuts for ease of use.
