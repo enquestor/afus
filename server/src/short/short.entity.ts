@@ -4,7 +4,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { IsUrl, NotContains } from 'class-validator';
 
 @Entity()
 export class Short {
@@ -14,8 +13,6 @@ export class Short {
   @Column()
   code: string;
 
-  @IsUrl({ require_protocol: true })
-  @NotContains(process.env.AFUS_URL || ' ')
   @Column()
   url: string;
 
