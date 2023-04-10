@@ -53,7 +53,6 @@ jobs:
           path: ./server
       
       - name: Tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
-          CUSTOM_TAG: v${{ steps.version.outputs.current-version }}
+        run: |
+          git tag -f v${{ steps.version.outputs.current-version }} && \
+          git push -f origin v${{ steps.version.outputs.current-version }}
