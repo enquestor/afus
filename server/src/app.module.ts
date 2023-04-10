@@ -12,7 +12,7 @@ import { Short } from './short/short.entity';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.local', '.env'],
+      envFilePath: ['.env.local', '.env.test', '.env'],
       load: [config],
     }),
     TypeOrmModule.forRootAsync({

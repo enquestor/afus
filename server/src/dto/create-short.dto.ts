@@ -1,4 +1,4 @@
-import { IsUrl } from 'class-validator';
+import { IsUrl, Matches } from 'class-validator';
 import { NotContainsAfusUrl } from './validation';
 
 export class CreateShortDto {
@@ -9,6 +9,7 @@ export class CreateShortDto {
     },
     { message: 'Invalid URL.' },
   )
+  @Matches(/^https?/)
   @NotContainsAfusUrl({
     message: 'URL is already shortened.',
   })

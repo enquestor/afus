@@ -6,5 +6,5 @@ export default () => ({
   POSTGRES_DB: process.env.POSTGRES_DB || 'afus',
   SYNC: typeof process.env.SYNC !== 'undefined' ? process.env.SYNC : 'false',
   TTL: process.env.TTL || '60',
-  LIMIT: process.env.LIMIT || '6',
+  LIMIT: process.env.NODE_ENV === 'test' ? '10000' : process.env.LIMIT || '6',
 });
