@@ -52,6 +52,9 @@ jobs:
         with:
           path: ./server
       
+      - name: Setup GitHub Actions user
+        uses: fregante/setup-git-user@v2
+      
       - name: Tag
         run: |
           git tag -f v${{ steps.version.outputs.current-version }} && \
