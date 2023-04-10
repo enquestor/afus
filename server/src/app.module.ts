@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShortModule } from './short';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
 import config from './afus.config';
-import { Short } from 'src/short/short.entity';
+import { Short } from './short/short.entity';
 
 @Module({
   imports: [
@@ -42,6 +41,5 @@ import { Short } from 'src/short/short.entity';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

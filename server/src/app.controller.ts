@@ -14,10 +14,7 @@ import { CreateShortDto } from './dto';
 
 @Controller()
 export class AppController {
-  constructor(
-    // private readonly appService: AppService,
-    private shortService: ShortService,
-  ) {}
+  constructor(private shortService: ShortService) {}
 
   @Get(':code')
   async redirect(@Res() res: Response, @Param('code') code: string) {
