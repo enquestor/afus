@@ -2,13 +2,44 @@ name: Tests
 
 on: 
   pull_request:
+    branches: 
+      - master
 
 jobs:
-  docker:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Start postgres
+        run: docker compose -f docker-compose.dev.yml up -d
+      
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm ci
+      
+      - name: Run unit tests
+        working-directory: ./server
+        run: npm run test
+      
+      - name: Run e2e tests
+        working-directory: ./server
+        run: npm run test:e2e
+
+  docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
