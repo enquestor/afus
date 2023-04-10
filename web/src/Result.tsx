@@ -5,6 +5,7 @@ import {
   CardBody,
   CardFooter,
   Center,
+  Hide,
   Kbd,
   Modal,
   ModalCloseButton,
@@ -14,8 +15,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { QRCodeSVG } from "qrcode.react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import config from "./config";
+import UAParser from "ua-parser-js";
 
 function Character({ char }: { char: string }) {
   const isNumber = !isNaN(Number(char));
@@ -36,6 +38,10 @@ function Character({ char }: { char: string }) {
 function Result({ code }: { code: string }) {
   const [qrCodeOpen, setQrCodeOpen] = useState(false);
   const toast = useToast();
+  const isMacOS = useMemo(() => {
+    const os = new UAParser().getOS().name;
+    return os === "Mac OS" || os === "iOS";
+  }, []);
 
   function copyShortUrl() {
     navigator.clipboard.writeText(`${config.AFUS_URL}/${code}`);
@@ -47,19 +53,23 @@ function Result({ code }: { code: string }) {
 
   useEffect(() => {
     function handleKeyPress(event: KeyboardEvent) {
-      if (event.metaKey && event.code === "KeyC") {
+      if (
+        (isMacOS && event.metaKey && event.code === "KeyC") ||
+        (!isMacOS && event.ctrlKey && event.code === "KeyC")
+      ) {
         copyShortUrl();
       }
-      if (event.metaKey && event.code === "KeyE") {
+      if (
+        (isMacOS && event.metaKey && event.code === "KeyE") ||
+        (!isMacOS && event.ctrlKey && event.code === "KeyE")
+      ) {
         setQrCodeOpen(true);
       }
     }
 
     window.addEventListener("keydown", handleKeyPress);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [code]);
 
   return (
@@ -76,18 +86,22 @@ function Result({ code }: { code: string }) {
         <CardFooter>
           <Button onClick={copyShortUrl}>
             Copy
-            <Box w="8px" />
-            <Kbd>⌘</Kbd>
-            <Box w="4px" />
-            <Kbd>C</Kbd>
+            <Hide below="sm">
+              <Box w="8px" />
+              <Kbd>{isMacOS ? "⌘" : "^"}</Kbd>
+              <Box w="4px" />
+              <Kbd>C</Kbd>
+            </Hide>
           </Button>
           <Box w="12px" />
           <Button onClick={() => setQrCodeOpen(true)}>
             QR Code
-            <Box w="8px" />
-            <Kbd>⌘</Kbd>
-            <Box w="4px" />
-            <Kbd>E</Kbd>
+            <Hide below="sm">
+              <Box w="8px" />
+              <Kbd>{isMacOS ? "⌘" : "^"}</Kbd>
+              <Box w="4px" />
+              <Kbd>E</Kbd>
+            </Hide>
           </Button>
         </CardFooter>
       </Card>
